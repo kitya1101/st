@@ -1,10 +1,11 @@
 {
-    "builds": [
-      { "src": "st/server/api/index.py", "use": "@vercel/python" },
-      { "src": "st/package.json", "use": "@vercel/svelte" }
-    ],
-    "routes": [
-      { "src": "/api/(.*)", "dest": "st/server/api/index.py" },
-      { "src": "/(.*)", "dest": "st/src/routes/$1" }
-    ]
-  }
+  "builds": [
+    { "src": "st/server/api/index.py", "use": "@vercel/python" },
+    { "src": "st/package.json", "use": "@vercel/svelte", "config": { "distDir": "build" } }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "st/server/api/index.py" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "st/build/index.html" }
+  ]
+}
